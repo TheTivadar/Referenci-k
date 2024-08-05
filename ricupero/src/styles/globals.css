@@ -1,0 +1,17 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+.hover-effect {
+  display: inline-block;
+  background: linear-gradient(to right, black 50%, orange 50%);
+  background-size: 200% 100%;
+  background-position:  0 -100%;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  transition: background-position 2s ease;
+}
+
+.hover-effect:hover {
+  background-position: 100% 0;
+}
