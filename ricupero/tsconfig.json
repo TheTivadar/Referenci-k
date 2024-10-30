@@ -16,6 +16,6 @@
       "@/*": ["./src/*"]
     }
   },
-  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", "src/components/Header.TSX", "src/utils/animations.js", "src/components/HeroMain.jsx"],
+  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", "src/components/Header.TSX", "src/utils/animations.js", "src/components/HeroMain.tsx", "src/components/UtepitesGepek.jsx", "src/components/Demaszszamok.jsx", "src/pages/ihvdsvbaeiwvgoivabwevlkiwiueiv.tsx", "src/pages/dashboard/dashboard.jsx", "src/pages/dashboard/geppark.tsx", "src/components/ExpandableCard2.jsx", "src/ui/dashboard/sidebar/sidebar.jsx", "src/components/SzerkesztoDash.jsx", "src/components/Partners.tsx", "src/pages/api/auth/[...nextauth].js", "src/components/Nyilatkozat.tsx"],
   "exclude": ["node_modules"]
 }

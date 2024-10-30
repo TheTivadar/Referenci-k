@@ -1,0 +1,8 @@
+services:
+    ricupero-web:
+        build: .
+        networks:
+            - public
+networks:
+    public:
+        external: true

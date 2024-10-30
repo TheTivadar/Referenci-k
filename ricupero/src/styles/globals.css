@@ -7,11 +7,128 @@
   background: linear-gradient(to right, black 50%, orange 50%);
   background-size: 200% 100%;
   background-position:  0 -100%;
-  -webkit-background-clip: text;
+  background-clip: text;
   -webkit-text-fill-color: transparent;
   transition: background-position 2s ease;
+}
+
+
+.hover-fast {
+  background: linear-gradient(to right, black 50%, orange 50%);
+  background-size: 200% 100%;
+  background-position:  0 -100%;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  transition: background-position 0.5s ease;
 }
 
 .hover-effect:hover {
   background-position: 100% 0;
 }
+
+.hover-fast:hover {
+  background-position: 100% 0;
+}
+
+@keyframes appear {
+  from {
+    opacity: 0;
+    clip-path: inset(100% 100% 0 0);
+  }
+  to {
+    opacity: 1;
+    clip-path: inset(0 0 0 0);
+  }
+}
+
+
+@keyframes slideInLeft {
+  from {
+    transform: translateX(-20%);
+    opacity: 0;
+  }
+  to {
+    transform: translateX(0);
+    opacity: 1;
+  }
+}
+
+@keyframes slideInRight {
+  from {
+    transform: translateX(20%);
+    opacity: 0;
+  }
+  to {
+    transform: translateX(0);
+    opacity: 1;
+  }
+}
+
+@keyframes slideInSlow {
+  from {
+    transform: translateX(10%);
+    opacity: 0;
+  }
+  to {
+    transform: translateX(0);
+    opacity: 2;
+  }
+}
+
+@keyframes slideInDown{
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+.hidden-element {
+  opacity: 0;
+  transform: translateX(0);
+  transition: opacity 0.3s ease-out, transform 0.3s ease-out;
+}
+
+.animate-left {
+  animation: slideInLeft 1s ease-out forwards;
+}
+
+.animate-down {
+  animation: slideInDown 1s ease-out forwards;
+}
+
+.animate-right {
+  animation: slideInRight 1s ease-out forwards;
+}
+.animate-slow {
+  animation: slideInSlow 1.5s ease-out forwards;
+}
+
+
+
+.centered-text {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+}
+
+.dashboard{
+  --bg: white;
+  --bgBlue: #151c2c;
+  --bgSoft: #182237;
+  --text: white;
+  --bgLight: #f5ffff;
+  --textSoft: #b7bac1;
+}
+
+.body{
+  background-color: var(--bg);
+  color: var(--text);
+}
+
+.transition-background {
+  transition: background-color 0.5s ease-in-out;
+}
+

@@ -27,8 +27,8 @@ export function TypewriterEffectSmoothD() {
     ];
   
     return (
-        <div className="flex flex-col items-center justify-center py-24 ">
-        <p className="text-gray-800 text-lg sm:text-xl md:text-2xl ">
+        <div className="flex flex-col items-center justify-center py-8 md:py-24 ">
+        <p className="text-gray-800 text-xl md:text-2xl ">
           Vedd fel a kapcsolatot!
         </p>
         <TypewriterEffectSmooth words={words} />

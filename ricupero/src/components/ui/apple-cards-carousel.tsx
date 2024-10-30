@@ -1,10 +1,20 @@
-import React, { useEffect, useRef, useState, createContext, useContext } from "react";
-import { IconArrowNarrowLeft, IconArrowNarrowRight, IconX } from "@tabler/icons-react";
+"use client";
+import React, {
+  useEffect,
+  useRef,
+  useState,
+  createContext,
+  useContext,
+} from "react";
+import {
+  IconArrowNarrowLeft,
+  IconArrowNarrowRight,
+  IconX,
+} from "@tabler/icons-react";
 import { cn } from "../../utils/cn";
 import { AnimatePresence, motion } from "framer-motion";
 import Image, { ImageProps } from "next/image";
 import { useOutsideClick } from "@/hooks/use-outside-click";
-import { useRouter } from 'next/router';
 
 interface CarouselProps {
   items: JSX.Element[];
@@ -27,9 +37,9 @@ export const CarouselContext = createContext<{
 });
 
 export const Carousel = ({ items, initialScroll = 0 }: CarouselProps) => {
-  const carouselRef = useRef<HTMLDivElement>(null);
-  const [canScrollLeft, setCanScrollLeft] = useState(false);
-  const [canScrollRight, setCanScrollRight] = useState(true);
+  const carouselRef = React.useRef<HTMLDivElement>(null);
+  const [canScrollLeft, setCanScrollLeft] = React.useState(false);
+  const [canScrollRight, setCanScrollRight] = React.useState(true);
   const [currentIndex, setCurrentIndex] = useState(0);
 
   useEffect(() => {
@@ -49,20 +59,20 @@ export const Carousel = ({ items, initialScroll = 0 }: CarouselProps) => {
 
   const scrollLeft = () => {
     if (carouselRef.current) {
-      carouselRef.current.scrollBy({ left: -200, behavior: "smooth" }); // Smaller scroll amount
+      carouselRef.current.scrollBy({ left: -300, behavior: "smooth" });
     }
   };
 
   const scrollRight = () => {
     if (carouselRef.current) {
-      carouselRef.current.scrollBy({ left: 200, behavior: "smooth" }); // Smaller scroll amount
+      carouselRef.current.scrollBy({ left: 300, behavior: "smooth" });
     }
   };
 
   const handleCardClose = (index: number) => {
     if (carouselRef.current) {
-      const cardWidth = isMobile() ? 180 : 300; // Adjusted card width
-      const gap = isMobile() ? 2 : 4;
+      const cardWidth = isMobile() ? 230 : 384; // (md:w-96)
+      const gap = isMobile() ? 4 : 8;
       const scrollPosition = (cardWidth + gap) * (index + 1);
       carouselRef.current.scrollTo({
         left: scrollPosition,
@@ -77,19 +87,33 @@ export const Carousel = ({ items, initialScroll = 0 }: CarouselProps) => {
   };
 
   return (
-    <CarouselContext.Provider value={{ onCardClose: handleCardClose, currentIndex }}>
+    <CarouselContext.Provider
+      value={{ onCardClose: handleCardClose, currentIndex }}
+    >
       <div className="relative w-full">
         <div
-          className="flex w-full overflow-x-scroll overscroll-x-auto pt-10 md:pt-20 scroll-smooth [scrollbar-width:none]"
+          className="flex w-full overflow-x-scroll overscroll-x-auto py-10 scroll-smooth [scrollbar-width:none]"
           ref={carouselRef}
           onScroll={checkScrollability}
         >
-          <div className="absolute right-0  z-[1000] h-auto  w-[5%] overflow-hidden bg-gradient-to-l"></div>
+          <div
+            className={cn(
+              "absolute right-0  z-[1000] h-auto  w-[5%] overflow-hidden bg-gradient-to-l"
+            )}
+          ></div>
 
-          <div className="flex flex-row justify-start gap-2 pl-2 max-w-7xl mx-auto">
+          <div
+            className={cn(
+              "flex flex-row justify-start gap-2 pl-4",
+              "max-w-7xl mx-auto" // remove max-w-4xl if you want the carousel to span the full width of its container
+            )}
+          >
             {items.map((item, index) => (
               <motion.div
-                initial={{ opacity: 0, y: 20 }}
+                initial={{
+                  opacity: 0,
+                  y: 20,
+                }}
                 animate={{
                   opacity: 1,
                   y: 0,
@@ -101,27 +125,27 @@ export const Carousel = ({ items, initialScroll = 0 }: CarouselProps) => {
                   },
                 }}
                 key={"card" + index}
-                className="last:pr-[5%] md:last:pr-[25%] rounded-2xl"
+                className="last:pr-[5%] md:last:pr-[33%]  rounded-3xl"
               >
                 {item}
               </motion.div>
             ))}
           </div>
         </div>
-        <div className="flex justify-end gap-2 mr-10 mt-6">
+        <div className="flex justify-end gap-4 mr-10">
           <button
             className="relative z-40 h-10 w-10 rounded-full bg-gray-100 flex items-center justify-center disabled:opacity-50"
             onClick={scrollLeft}
             disabled={!canScrollLeft}
           >
-            <IconArrowNarrowLeft className="h-6 w-6 text-gray-600" />
+            <IconArrowNarrowLeft className="h-6 w-6 text-gray-500" />
           </button>
           <button
             className="relative z-40 h-10 w-10 rounded-full bg-gray-100 flex items-center justify-center disabled:opacity-50"
             onClick={scrollRight}
             disabled={!canScrollRight}
           >
-            <IconArrowNarrowRight className="h-6 w-6 text-gray-600" />
+            <IconArrowNarrowRight className="h-6 w-6 text-gray-500" />
           </button>
         </div>
       </div>
@@ -130,96 +154,25 @@ export const Carousel = ({ items, initialScroll = 0 }: CarouselProps) => {
 };
 
 export const Card = ({
-  card,
-  index,
-  layout = false,
-}: {
-  card: Card;
-  index: number;
-  layout?: boolean;
-}) => {
-  const [open, setOpen] = useState(false);
-  const containerRef = useRef<HTMLDivElement>(null);
-  const { onCardClose, currentIndex } = useContext(CarouselContext);
-  const router = useRouter();
-
-  useEffect(() => {
-    function onKeyDown(event: KeyboardEvent) {
-      if (event.key === "Escape") {
-        handleClose();
-      }
-    }
-
-    if (open) {
-      document.body.style.overflow = "hidden";
-    } else {
-      document.body.style.overflow = "auto";
-    }
-
-    window.addEventListener("keydown", onKeyDown);
-    return () => window.removeEventListener("keydown", onKeyDown);
-  }, [open]);
-
-  useOutsideClick(containerRef, () => handleClose());
-
-  const handleOpen = () => {
-    router.push('/gepiFoldmunka');
-  };
-
-  const handleClose = () => {
-    setOpen(false);
-    onCardClose(index);
-  };
-
-  return (
-    <>
-      <AnimatePresence>
-        {open && (
-          <div className="fixed inset-0 h-screen z-50 overflow-auto">
-            <motion.div
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              exit={{ opacity: 0 }}
-              className="bg-black/80 backdrop-blur-lg h-full w-full fixed inset-0"
-            />
-            <motion.div
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              exit={{ opacity: 0 }}
-              ref={containerRef}
-              layoutId={layout ? `card-${card.title}` : undefined}
-              className="max-w-4xl mx-auto bg-white dark:bg-neutral-900 h-fit  z-[60] my-10 p-4 md:p-8 rounded-3xl font-sans relative"
-            >
-              <button
-                className="sticky top-4 h-8 w-8 right-0 ml-auto bg-black dark:bg-white rounded-full flex items-center justify-center"
-                onClick={handleClose}
-              >
-                <IconX className="h-6 w-6 text-neutral-100 dark:text-neutral-900" />
-              </button>
-              <motion.p
-                layoutId={layout ? `category-${card.title}` : undefined}
-                className="text-base font-medium text-black dark:text-white"
-              >
-                {card.category}
-              </motion.p>
-              <motion.p
-                layoutId={layout ? `title-${card.title}` : undefined}
-                className="text-2xl md:text-4xl font-semibold text-neutral-700 mt-4 dark:text-white"
-              >
-                {card.title}
-              </motion.p>
-              <div className="py-8">{card.content}</div>
-            </motion.div>
-          </div>
-        )}
-      </AnimatePresence>
+    card,
+    index,
+    layout = false,
+  }: {
+    card: Card;
+    index: number;
+    layout?: boolean;
+  }) => {
+    // Állapot és egyéb funkciók eltávolítva
+    const containerRef = useRef<HTMLDivElement>(null);
+    const { onCardClose, currentIndex } = useContext(CarouselContext);
+  
+    return (
       <motion.button
         layoutId={layout ? `card-${card.title}` : undefined}
-        onClick={handleOpen}
-        className="rounded-2xl bg-gray-100 dark:bg-neutral-900 h-64 w-44 md:h-[24rem] md:w-80 overflow-hidden flex flex-col items-start justify-start relative z-10"
+        className="rounded-3xl bg-gray-100 dark:bg-neutral-900 h-60 w-48 md:h-96 md:w-80 overflow-hidden flex flex-col items-start justify-start relative z-10"  
       >
         <div className="absolute h-full top-0 inset-x-0 bg-gradient-to-b from-black/50 via-transparent to-transparent z-30 pointer-events-none" />
-        <div className="relative z-40 p-6">
+        <div className="relative z-40 p-4"> {/* Csökkentett padding */}
           <motion.p
             layoutId={layout ? `category-${card.category}` : undefined}
             className="text-white text-sm md:text-base font-medium font-sans text-left"
@@ -228,7 +181,7 @@ export const Card = ({
           </motion.p>
           <motion.p
             layoutId={layout ? `title-${card.title}` : undefined}
-            className="text-white text-lg md:text-2xl font-semibold max-w-xs text-left [text-wrap:balance] font-sans mt-2"
+            className="text-white text-xl md:text-2xl font-semibold max-w-xs text-left [text-wrap:balance] font-sans mt-2"
           >
             {card.title}
           </motion.p>
@@ -237,49 +190,37 @@ export const Card = ({
           src={card.src}
           alt={card.title}
           fill
-          className="absolute inset-0 h-full w-full object-cover z-10"
+          className="object-cover absolute z-10 inset-0"
         />
       </motion.button>
-    </>
-  );
-};
+    );
+  };
 
-function BlurImage(props: ImageProps) {
+export const BlurImage = ({
+  height,
+  width,
+  src,
+  className,
+  alt,
+  ...rest
+}: ImageProps) => {
+  const [isLoading, setLoading] = useState(true);
   return (
     <Image
-      {...props}
-      placeholder="blur"
-      blurDataURL={`data:image/svg+xml;base64,${toBase64(
-        shimmer(700, 475)
-      )}`}
-      alt={props.alt}
+      className={cn(
+        "transition duration-300",
+        isLoading ? "blur-sm" : "blur-0",
+        className
+      )}
+      onLoad={() => setLoading(false)}
+      src={src}
+      width={width}
+      height={height}
+      loading="lazy"
+      decoding="async"
+      blurDataURL={typeof src === "string" ? src : undefined}
+      alt={alt ? alt : "Background of a beautiful view"}
+      {...rest}
     />
   );
-}
-
-const shimmer = (w: number, h: number) => `
-  <svg width="${w}" height="${h}" xmlns="http://www.w3.org/2000/svg" version="1.1">
-    <defs>
-      <linearGradient id="g">
-        <stop stop-color="#333" offset="20%" />
-        <stop stop-color="#222" offset="50%" />
-        <stop stop-color="#333" offset="70%" />
-      </linearGradient>
-    </defs>
-    <rect width="${w}" height="${h}" fill="#333" />
-    <rect id="r" width="${w}" height="${h}" fill="url(#g)" />
-    <animate
-      xlink:href="#r"
-      attributeName="x"
-      from="-${w}"
-      to="${w}"
-      dur="1s"
-      repeatCount="indefinite"  />
-  </svg>`;
-
-const toBase64 = (str: string) =>
-  typeof window === "undefined"
-    ? Buffer.from(str).toString("base64")
-    : window.btoa(str);
-
-export default Card;
+};

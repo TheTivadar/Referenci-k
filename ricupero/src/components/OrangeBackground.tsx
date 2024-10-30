@@ -16,7 +16,7 @@ const OrangeBackground = () => {
             height={200}
             patternUnits="userSpaceOnUse"
           >
-            <path d="M100 200V.5M.5 .5H200" fill="none" stroke="rgba(255, 165, 0, 0.1)" />
+            <path d="M100 200V.5M.5 .5H200" fill="none" stroke="rgba(255, 165, 0, 0.2)" />
           </pattern>
         </defs>
         <rect

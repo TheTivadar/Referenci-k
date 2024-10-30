@@ -1,0 +1,11 @@
+{
+  "extends": ["next/core-web-vitals", "next/typescript"],
+  "rules": {
+    "no-unused-vars": "warn", // Figyelmeztetés a nem használt változókra
+    "@typescript-eslint/no-unused-vars": ["warn"], // TypeScript specifikus, ha van nem használt változód
+    "@typescript-eslint/no-explicit-any": "warn", // Figyelmeztetés az explicit 'any' használatra
+    "@typescript-eslint/no-empty-interface": "warn", // Figyelmeztetés üres interfészekre
+    "@typescript-eslint/no-empty-object-type": "warn",
+    "prefer-const": "warn" // Figyelmeztetés a const használatára, ha egy változó nem módosul
+  }
+}

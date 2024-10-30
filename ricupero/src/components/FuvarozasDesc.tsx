@@ -11,35 +11,61 @@ import {
 } from "@tabler/icons-react";
 import OrangeBackground from "./OrangeBackground";
 
-export function FuvarozasDesc() {
+interface KontenerTipus {
+  id: string;
+  title?: string;
+  body?: string;
+  description?: string;
+  prop1?: string;
+  prop2?: string;
+  prop3?: string;
+  src?:string;
+}
+
+interface Props {
+  utseproGarantalunk: KontenerTipus[];
+}
+
+const FuvarozasDesc = ({ utseproGarantalunk }: Props) => {
+
+  const title1 = utseproGarantalunk.find(item =>item.id === "1")?.title;
+  const body2 = utseproGarantalunk.find(item => item.id === "2")?.body;
+  const title2 = utseproGarantalunk.find(item =>item.id === "2")?.title;
+  const body3 = utseproGarantalunk.find(item => item.id === "3")?.body;
+  const title3 = utseproGarantalunk.find(item =>item.id === "3")?.title;
+  const body4 = utseproGarantalunk.find(item => item.id === "4")?.body;
+  const title4 = utseproGarantalunk.find(item =>item.id === "4")?.title;
+
+
+
   const features = [
     {
-      title: "Korszerű Flotta",
-      description: "Modern járműparkunk garantálja, hogy minden típusú árut a legmegfelelőbb járművel szállítunk. ",
+      title:title2 ||"Korszerű Flotta",
+      description: body2 || "Modern járműparkunk garantálja, hogy minden típusú árut a legmegfelelőbb járművel szállítunk. ",
       icon: <IconRouteAltLeft />,
     },
     {
-      title: "Pontosan határidőre",
-      description:
+      title: title3|| "Pontosan határidőre",
+      description: body3 ||
         "Tudjuk, hogy az idő pénz, és mi garantáljuk, hogy szállítmánya mindig időben érkezik.",
       icon: <IconHelp />,
     },
     {
-      title: "Rugalmasság és Testreszabhatóság",
-      description:
+      title: title4 || "Rugalmasság és Testreszabhatóság",
+      description: body4 ||
         "Tudjuk, hogy minden ügyfél igénye egyedi. Ezért kínálunk rugalmas fuvarozási megoldásokat, amelyek pontosan az Ön igényeihez igazodnak.",
       icon: <IconAdjustmentsBolt />,
     },
   ];
   return (
-    <div className="pt-20 relative px-6  lg:overflow-visible lg:px-0">
+    <div className="pt-10 md:pt-20 relative px-6  lg:overflow-visible lg:px-0">
         <div className="text-black font-extrabold  text-2xl  md:text-4xl flex justify-center p-4 pb-1">
-        Amit mi garantálunk!
+        {title1}
       </div>
       <div className="flex justify-center">
         <div className="w-2/5 border-b-4 border-yellow-500 font-extrabold mb-20"></div>
       </div>
-    <div className="pb-16 grid grid-cols-1 sm:grid-cols-3  relative z-10  max-w-full mx-auto">
+    <div className="pb-16 grid grid-cols-1 sm:grid-cols-3 space-y-3 md:space-y-0 relative z-10  max-w-full mx-auto">
       {features.map((feature, index) => (
         <Feature key={feature.title} {...feature} index={index} />
       ))}
@@ -47,6 +73,7 @@ export function FuvarozasDesc() {
     </div>
   );
 }
+export default FuvarozasDesc
 
 const Feature = ({
   title,

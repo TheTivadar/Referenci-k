@@ -1,101 +1,117 @@
 "use client";
-import React, { useState, useRef, useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import { LayoutGrid } from "./ui/layout-grid";
 
-export function LayoutGridD() {
+interface KontenerTipus {
+  id: string;
+  title?: string;
+  body?: string;
+  description?: string;
+  prop1?: string;
+  src?:string;
+}
+
+interface Props {
+  mainReferences: KontenerTipus[];
+}
+
+export function LayoutGridD({ mainReferences }: Props) {
+
+
+  const SkeletonOne = () => {
+    const title1 = mainReferences.find(item => item.id === "1")?.title;
+    const body1 = mainReferences.find(item => item.id === "1")?.body;
+    
+    return (
+      <div>
+        <p className="font-bold md:text-4xl text-xl text-white">
+          {title1}
+        </p>
+        <p className="font-normal text-base my-4 max-w-lg text-neutral-200">
+          {body1}
+        </p>
+      </div>
+    );
+  };
+
+  const SkeletonTwo = () => {
+    const title2 = mainReferences.find(item => item.id === "2")?.title;
+    const body2 = mainReferences.find(item => item.id === "2")?.body;
+    
+    return (
+      <div>
+        <p className="font-bold md:text-4xl text-xl text-white">
+          {title2}
+        </p>
+        <p className="font-normal text-base my-4 max-w-lg text-neutral-200">
+          {body2}
+        </p>
+      </div>
+    );
+  };
+
+  const SkeletonThree = () => {
+    const title3 = mainReferences.find(item => item.id === "3")?.title;
+    const body3 = mainReferences.find(item => item.id === "3")?.body;
+    
+    return (
+      <div>
+        <p className="font-bold md:text-4xl text-xl text-white">
+          {title3}
+        </p>
+        <p className="font-normal text-base my-4 max-w-lg text-neutral-200">
+          {body3}
+        </p>
+      </div>
+    );
+  };
+
+  const SkeletonFour = () => {
+    const title4 = mainReferences.find(item => item.id === "4")?.title;
+    const body4 = mainReferences.find(item => item.id === "4")?.body;
+    
+    return (
+      <div>
+        <p className="font-bold md:text-4xl text-xl text-white">
+          {title4}
+        </p>
+        <p className="font-normal text-base my-4 max-w-lg text-neutral-200">
+          {body4}
+        </p>
+      </div>
+    );
+  };
+
+  const cards = [
+    {
+      id: 1,
+      content: <SkeletonOne />,
+      className: "md:col-span-2",
+      thumbnail: "/munkagep.jpg",
+    },
+    {
+      id: 2,
+      content: <SkeletonTwo />,
+      className: "col-span-1",
+      thumbnail: "/munkagep.jpg",
+    },
+    {
+      id: 3,
+      content: <SkeletonThree />,
+      className: "col-span-1",
+      thumbnail: "/munkagep.jpg",
+    },
+    {
+      id: 4,
+      content: <SkeletonFour />,
+      className: "md:col-span-2",
+      thumbnail: "/munkagep.jpg",
+    },
+  ];
+
   return (
     <div className="h-screen py-20 w-full">
       <LayoutGrid cards={cards} />
     </div>
   );
 }
-
-const SkeletonOne = () => {
-  return (
-    <div>
-      <p className="font-bold md:text-4xl text-xl text-white">
-        House in the woods
-      </p>
-      <p className="font-normal text-base text-white"></p>
-      <p className="font-normal text-base my-4 max-w-lg text-neutral-200">
-        A serene and tranquil retreat, this house in the woods offers a peaceful
-        escape from the hustle and bustle of city life.
-      </p>
-    </div>
-  );
-};
-
-const SkeletonTwo = () => {
-  return (
-    <div>
-      <p className="font-bold md:text-4xl text-xl text-white">
-        House above the clouds
-      </p>
-      <p className="font-normal text-base text-white"></p>
-      <p className="font-normal text-base my-4 max-w-lg text-neutral-200">
-        Perched high above the world, this house offers breathtaking views and a
-        unique living experience. It&apos;s a place where the sky meets home,
-        and tranquility is a way of life.
-      </p>
-    </div>
-  );
-};
-const SkeletonThree = () => {
-  return (
-    <div>
-      <p className="font-bold md:text-4xl text-xl text-white">
-        Greens all over
-      </p>
-      <p className="font-normal text-base text-white"></p>
-      <p className="font-normal text-base my-4 max-w-lg text-neutral-200">
-        A house surrounded by greenery and nature&apos;s beauty. It&apos;s the
-        perfect place to relax, unwind, and enjoy life.
-      </p>
-    </div>
-  );
-};
-const SkeletonFour = () => {
-  return (
-    <div>
-      <p className="font-bold md:text-4xl text-xl text-white">
-        Rivers are serene
-      </p>
-      <p className="font-normal text-base text-white"></p>
-      <p className="font-normal text-base my-4 max-w-lg text-neutral-200">
-        A house by the river is a place of peace and tranquility. It&apos;s the
-        perfect place to relax, unwind, and enjoy life.
-      </p>
-    </div>
-  );
-};
-
-const cards = [
-  {
-    id: 1,
-    content: <SkeletonOne />,
-    className: "md:col-span-2",
-    thumbnail:
-      "",
-  },
-  {
-    id: 2,
-    content: <SkeletonTwo />,
-    className: "col-span-1",
-    thumbnail:
-      "",
-  },
-  {
-    id: 3,
-    content: <SkeletonThree />,
-    className: "col-span-1",
-    thumbnail:
-      "",
-  },
-  {
-    id: 4,
-    content: <SkeletonFour />,
-    className: "md:col-span-2",
-    thumbnail:
-      "",
-  },
-];

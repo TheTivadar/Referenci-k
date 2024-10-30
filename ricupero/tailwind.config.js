@@ -16,6 +16,10 @@ module.exports = {
   darkMode: "class",
   theme: {
     extend: {
+      colors:{
+        'sarga': '#e9c664',
+        'szurke': '#212121'
+      },
       animation: {
         aurora: "aurora 60s linear infinite",
         scroll:

@@ -1,0 +1,26 @@
+{
+  "compilerOptions": {
+    "lib": ["dom", "dom.iterable", "esnext"],
+    "allowJs": true,
+    "skipLibCheck": true,
+    "strict": true,
+    "noEmit": true,
+    "esModuleInterop": true,
+    "module": "esnext",
+    "moduleResolution": "bundler",
+    "resolveJsonModule": true,
+    "isolatedModules": true,
+    "jsx": "preserve",
+    "incremental": true,
+    "plugins": [
+      {
+        "name": "next"
+      }
+    ],
+    "paths": {
+      "@/*": ["./src/*"]
+    }
+  },
+  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", ".next/types/**/*.ts", "src/app/dashboard/layout.jsx", "src/app/ui/dashboard/sidebar/menuLink/menuLink.jsx", "src/app/ui/dashboard/sidebar/sidebar.jsx", "src/app/ui/dashboard/navbar/navbar.jsx", "src/app/dashboard/page.jsx", "src/app/ui/webshop/termekek.jsx", "src/app/ui/webshop/termekek2.js", "src/app/asd/layout.jsx", "src/app/fodraszat/layout.jsx", "src/app/fodraszat/szolgaltatas/layout.jsx", "src/app/ui/fodraszat/blogCard.jsx", "src/app/ui/fodraszat/barberCard.jsx", "src/app/dashboard/products/page.jsx", "src/app/dashboard/collections/page.jsx", "src/app/dashboard/users/page.jsx", "src/app/fuvar/layout.jsx"],
+  "exclude": ["node_modules"]
+}

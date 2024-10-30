@@ -1,34 +1,60 @@
-import { BentoGridFour } from '@/components/bentoGrid'
-import { CompareDemo } from '@/components/Compare'
+import { BentoGridSeven } from '@/components/BentoGridSeven'
+import { CompareUt } from '@/components/Compare'
 import { SlantedDivider, SlantedDividerDown } from '@/components/Divider'
 import Footer2 from '@/components/Footer2'
-import { FuvarozasDesc } from '@/components/FuvarozasDesc'
-import FuvarozasGeppark from '@/components/FuvarozasGeppark'
-import FuvarozasHero from '@/components/FuvarozasHero'
-import FuvarozasSzolgaltatas from '@/components/FuvarozasSzolgaltatas'
-import FuvarozasSzolgaltatas4 from '@/components/FuvarozasSzolgaltatas4'
+import FuvarozasDesc2 from '@/components/FuvarozasDesc2'
 import Navbar from '@/components/Navbar'
 import { TypewriterEffectSmoothD } from '@/components/TypeWritter'
-import React from 'react'
+import { UtepitesGepek } from '@/components/UtepitesGepek'
+import UtepitesHero from '@/components/UtepitesHero'
+import UtepitesSzolgaltatas from '@/components/UtepitesSzolgaltatas'
+import { fetchData } from './api/api'
+import { constructMetadata } from '@/lib/utils'
 
-const fuvarozas = () => {
+export const metadata = constructMetadata({
+  title: 'Ricupero - Útépítés',
+  description: 'A Ricupero szakértő csapata tapasztalt mérnökökből és kivitelezőkből áll, akik garantálják a kiváló minőségű útépítést. Legyen szó új utak kialakításáról vagy meglévő utak felújításáról, mi minden lépést alaposan megtervezünk, hogy a legjobban teljesítő infrastruktúrát biztosítsuk.',
+  image: '/RoadConstr.jpg', // Egyedi kép a főoldalhoz
+});
+
+
+export async function getStaticProps () {
+  const utepitesHero = await fetchData("utepitesHero");
+  const utepitesSzolgaltatas = await fetchData("utepitesSzolgaltatas");
+  const utepitesGeppark = await fetchData("utepitesGeppark");
+  const utepitesSzolgaltatas2 = await fetchData("utepitesSzolgaltatas2");
+  const utepitesSzolgaltatas3 = await fetchData("utepitesSzolgaltatas3");
+  return {
+    props: {
+      utepitesHero: utepitesHero,
+      utepitesSzolgaltatas: utepitesSzolgaltatas,
+      utepitesGeppark: utepitesGeppark,
+      utepitesSzolgaltatas2: utepitesSzolgaltatas2,
+      utepitesSzolgaltatas3: utepitesSzolgaltatas3,
+    },
+  };
+}
+
+
+
+const Utepites = ({ utepitesHero, utepitesSzolgaltatas, utepitesGeppark, utepitesSzolgaltatas2, utepitesSzolgaltatas3 }: any) => {
   return (
     <div>
-        <Navbar />
-        <FuvarozasHero />
-        <SlantedDivider />
-        <FuvarozasSzolgaltatas />
-        <FuvarozasGeppark />
-        <FuvarozasDesc />
-        <SlantedDivider />
-        <FuvarozasSzolgaltatas4 />
-        <SlantedDivider />
-        <TypewriterEffectSmoothD />
-        <SlantedDividerDown />
-        <CompareDemo/>
-        <Footer2 />
+      <Navbar />
+      <UtepitesHero utepitesHero={utepitesHero} />
+      <SlantedDivider />
+      <BentoGridSeven utepitesSzolgaltatas={utepitesSzolgaltatas} />
+      <UtepitesGepek utepitesGeppark={utepitesGeppark} />
+      <FuvarozasDesc2 utepitesSzolgaltatas2={utepitesSzolgaltatas2} />
+      <SlantedDivider />
+      <UtepitesSzolgaltatas utepitesSzolgaltatas3={utepitesSzolgaltatas3} />
+      <SlantedDivider />
+      <TypewriterEffectSmoothD />
+      <SlantedDividerDown />
+      <CompareUt />
+      <Footer2 />
     </div>
   )
 }
 
-export default fuvarozas
+export default Utepites

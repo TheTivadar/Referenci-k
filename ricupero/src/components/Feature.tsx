@@ -1,45 +1,62 @@
 import { cn } from "../utils/cn";
 import {
   IconAdjustmentsBolt,
-  IconCloud,
-  IconCurrencyDollar,
-  IconEaseInOut,
-  IconHeart,
   IconHelp,
   IconRouteAltLeft,
-  IconTerminal2,
 } from "@tabler/icons-react";
-import OrangeBackground from "./OrangeBackground";
 
-export function Feature4() {
+interface KontenerTipus {
+  id: string;
+  title: string;
+  body?: string;
+  description?: string;
+  prop1?: string;
+  src?:string;
+}
+
+interface Props {
+  kontenerGarantalunk: KontenerTipus[];
+}
+
+
+const Feature4 = ({ kontenerGarantalunk }: Props) => {
+  if(!kontenerGarantalunk) return null;
+  const title1 = kontenerGarantalunk.find(item =>item.id === "1")?.title;
+  const body2 = kontenerGarantalunk.find(item => item.id === "2")?.body;
+  const title2 = kontenerGarantalunk.find(item =>item.id === "2")?.title;
+  const body3 = kontenerGarantalunk.find(item => item.id === "3")?.body;
+  const title3 = kontenerGarantalunk.find(item =>item.id === "3")?.title;
+  const body4 = kontenerGarantalunk.find(item => item.id === "4")?.body;
+  const title4 = kontenerGarantalunk.find(item =>item.id === "4")?.title;
+
   const features = [
     {
-      title: "Multi-tenant Architecture",
-      description: "You can simply share passwords instead of buying new seats",
+      title: title2 || "Megbízhatóság és Pontosság",
+      description:body2 || "A cég garantálja, hogy a bérbe adott gépek megbízhatóak és jól karbantartottak. Az eszközök mindig a megállapodott időpontban és helyszínen állnak rendelkezésre.",
       icon: <IconRouteAltLeft />,
     },
     {
-      title: "24/7 Customer Support",
-      description:
-        "We are available a 100% of the time. Atleast our AI Agents are.",
+      title: title3 || "Szakképzett Operátorok és Technikai Támogatás",
+      description:body3 ||
+        "A cég biztosítja, hogy a gépek működtetésére szakképzett és tapasztalt operátorokat alkalmaz. Továbbá, technikai támogatást és szervizszolgáltatást is nyújtanak a gépek működése során felmerülő problémák esetén.",
       icon: <IconHelp />,
     },
     {
-      title: "Money back guarantee",
-      description:
-        "If you donot like EveryAI, we will convince you to like us.",
+      title:title4 || "Rugalmasság és Testreszabott Megoldások",
+      description:body4 ||
+        "A cég kínálja a szükséges gépeket és eszközöket a projekt specifikus igényeinek megfelelően, és rugalmasan alkalmazkodik a változó projektkövetelményekhez.",
       icon: <IconAdjustmentsBolt />,
     },
   ];
   return (
     <div className="pt-20 relative px-6  lg:overflow-visible lg:px-0">
         <div className="text-black font-extrabold  text-2xl  md:text-4xl flex justify-center p-4 pb-1">
-        Amit mi garantálunk!
+        {title1}
       </div>
       <div className="flex justify-center">
-        <div className="w-2/5 border-b-4 border-yellow-500 font-extrabold mb-20"></div>
+        <div className="w-4/5 md:w-2/5 border-b-4 border-yellow-500 font-extrabold mb-20"></div>
       </div>
-    <div className="pb-16 grid grid-cols-1 sm:grid-cols-3  relative z-10  max-w-full mx-auto">
+    <div className="pb-16 grid grid-cols-1 sm:grid-cols-3 space-y-3 md:sapce-y-0 relative z-10  max-w-full mx-auto">
       {features.map((feature, index) => (
         <Feature key={feature.title} {...feature} index={index} />
       ))}
@@ -47,6 +64,8 @@ export function Feature4() {
     </div>
   );
 }
+
+export default Feature4;
 
 const Feature = ({
   title,
@@ -82,7 +101,7 @@ const Feature = ({
           {title}
         </span>
       </div>
-      <p className="text-sm text-neutral-600 dark:text-neutral-300 max-w-xs relative z-10 px-10">
+      <p className="text-sm text-neutral-600 dark:text-neutral-300 max-w-xl relative z-10 px-10">
         {description}
       </p>
     </div>
